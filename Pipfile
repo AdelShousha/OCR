@@ -11,6 +11,8 @@ torch = "*"
 torchvision = "*"
 torchaudio = "*"
 django-cors-headers = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
