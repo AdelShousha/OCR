@@ -1,14 +1,15 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from .serializers import ImageUploadSerializer
-from .functions import ocr_function
+# from .functions import ocr_function
 from .models import ImageModel
 from PIL import Image  # Assuming PIL for image processing
 from io import BytesIO
 import numpy as np
+import easyocr
 
+reader = easyocr.Reader(['en'], gpu=False)
 
 class OCRViewSet(viewsets.ModelViewSet):
     queryset = ImageModel.objects.all()
@@ -29,3 +30,10 @@ class OCRViewSet(viewsets.ModelViewSet):
             return Response({'text': text}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def ocr_function(image):
+    # image is a NumPy array
+    result = reader.readtext(image, detail=0)
+    result = " ".join(result)
+    return result

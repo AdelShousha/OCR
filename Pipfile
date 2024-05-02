@@ -13,6 +13,7 @@ torchaudio = "*"
 django-cors-headers = "*"
 whitenoise = "*"
 gunicorn = "*"
+asyncio = "*"
 
 [dev-packages]
 
