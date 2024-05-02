@@ -9,7 +9,7 @@ from io import BytesIO
 import numpy as np
 import easyocr
 
-# reader = easyocr.Reader(['en'], gpu=False)
+reader = easyocr.Reader(['en'], gpu=False)
 
 class OCRViewSet(viewsets.ModelViewSet):
     queryset = ImageModel.objects.all()
@@ -25,16 +25,15 @@ class OCRViewSet(viewsets.ModelViewSet):
             image_array = np.array(image_pil)
 
             # Run OCR function on the NumPy array
-            # text = ocr_function(image_array)
-            text = "Hello World"
+            text = ocr_function(image_array)
 
             return Response({'text': text}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# def ocr_function(image):
-#     # image is a NumPy array
-#     result = reader.readtext(image, detail=0)
-#     result = " ".join(result)
-#     return result
+def ocr_function(image):
+    # image is a NumPy array
+    result = reader.readtext(image, detail=0)
+    result = " ".join(result)
+    return result
