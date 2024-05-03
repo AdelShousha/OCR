@@ -1,1 +1,1 @@
-web: gunicorn ocr.wsgi --timeout 1200 --log-file -
+web: gunicorn ocr.wsgi --log-file - 
